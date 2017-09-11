@@ -8,25 +8,25 @@ class TicTacToe
   end
 
   def display_board
-  puts " #{board[0]} | #{board[1]} | #{board[2]} "
+  puts " #{@board[0]} | #{@board[1]} | #{@board[2]} "
   puts "-----------"
-  puts " #{board[3]} | #{board[4]} | #{board[5]} "
+  puts " #{@board[3]} | #{@board[4]} | #{@board[5]} "
   puts "-----------"
-  puts " #{board[6]} | #{board[7]} | #{board[8]} "
+  puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
   end
 
   def valid_move?(index)
-    if (!position_taken?(board, index) && index.between?(0, 8))
+    if (!position_taken?(@board, index) && index.between?(0, 8))
     true
     end
   end
 
   def position_taken?(index)
-  !(board[index].nil? || board[index] == " ")
+  !(@board[index].nil? || @board[index] == " ")
   end
 
   def move(index, token)
-    board[index] = token
+    @board[index] = token
   end
 
   def turn
@@ -44,7 +44,7 @@ class TicTacToe
 
   def turn_count
   count = 0
-  board.each do |token|
+  @board.each do |token|
     if token == "X" || token == "O"
       count += 1
     end
@@ -74,14 +74,14 @@ WIN_COMBINATIONS = [
 
   def won?
   WIN_COMBINATIONS.detect do |winc|
-    board[winc[0]] == board[winc[1]] &&
-    board[winc[1]] == board[winc[2]] &&
-    position_taken?(board, winc[0])
+    @board[winc[0]] == @board[winc[1]] &&
+    @board[winc[1]] == @board[winc[2]] &&
+    position_taken?(winc[0])
   end
   end
 
   def full?
-  board.all? do |token|
+  @board.all? do |token|
     token == "X" || token == "O"
   end
   end
@@ -96,7 +96,7 @@ WIN_COMBINATIONS = [
 
   def winner
   if winc = won?
-    board[winc.first]
+    @board[winc.first]
   end
   end
 
@@ -105,7 +105,7 @@ WIN_COMBINATIONS = [
     turn
   end
   if won?
-    puts "Congratulations #{winner(board)}!"
+    puts "Congratulations #{winner}!"
   elsif draw?
     puts "Cat's Game!"
   end
